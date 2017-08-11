@@ -8,13 +8,13 @@ Admin Dashboard - [http://dbrandydude.github.io/admin](http://dbrandydude.github
 
 ## API-Routes
 [dbbooks.herokuapp.com/api](dbbooks.herokuapp.com/api)
-- POST api/users/signup => Signup for new new account
+- POST `api/users/signup` => Signup for new new account
 
 - POST `api/users/signin` => Signin to application as a user
-- POST `api/users/:userId/books` => Borrow a book
-- PUT `api/users/:userId/books` => Returns borrowed book
+- POST `api/users/:userId/books` => Borrow a book by `userId`
+- PUT `api/users/:userId/books` => Returns borrowed book by `userId`
 - GET `api/users/:userId/books` => User borrow history by `userId`
-- GET `api/users/:userId/books?returned=true` => Retrieve returned books 
+- GET `api/users/:userId/books?returned=true` => Retrieve returned books by `userId`
 - POST `api/books` => Adds book to database
 - PUT `api/books/:bookId` => Modify book by `bookId`
 - GET `api/books` => Retrieve all books in the database
