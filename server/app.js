@@ -2,12 +2,18 @@ import express from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import session from 'express-session';
+import expressValidator from 'express-validator';
+import passport from 'passport';
+
 // load environment variables with dotenv
 import 'dotenv/config';
 
+import './auth/passport';
+
 /* Routes */
 import routes from './routes/index';
-import users from './routes/users';
+import api from './routes/api';
 
 // Express Instance
 const app = express();
@@ -15,10 +21,20 @@ const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
 app.use(cookieParser());
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true
+}));
+
+/* Initialize passport */
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
