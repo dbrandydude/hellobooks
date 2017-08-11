@@ -16,7 +16,10 @@
     "logging": false
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
-  }
-}
+    "username": "sxkogksx",
+    "password": "SbE_v_XLAf2NMMh6Q-3mHDvl7J3sZmqL",
+    "database": "sxkogksx",
+    "host": "babar.elephantsql.com",
+    "dialect": "postgres",
+    "logging": false
+  }}
