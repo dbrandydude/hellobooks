@@ -11,7 +11,8 @@ module.exports = {
             },
             isbn: {
                 type: Sequelize.INTEGER,
-                allowNull: false
+                allowNull: false,
+                unique: true
             },
             title: {
                 type: Sequelize.STRING,
@@ -22,10 +23,12 @@ module.exports = {
                 allowNull: false
             },
             published: {
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
+                allowNull: false
             },
             qty: {
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
+                allowNull: false
             },
             createdAt: {
                 allowNull: false,

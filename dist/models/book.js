@@ -7,11 +7,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var model = function model(sequelize, DataTypes) {
     var Book = sequelize.define('Book', {
-        isbn: DataTypes.INTEGER,
-        title: DataTypes.STRING,
-        author: DataTypes.STRING,
-        published: DataTypes.DATE,
-        qty: DataTypes.INTEGER
+        isbn: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            unique: true
+        },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        author: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        published: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        qty: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
     });
 
     // Class Method

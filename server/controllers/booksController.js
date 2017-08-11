@@ -22,7 +22,6 @@ const BooksController = {
                 title: req.body.title,
                 author: req.body.author,
                 published: req.body.published,
-                description: req.body.description,
                 qty: req.body.qty
             };
 
@@ -34,7 +33,9 @@ const BooksController = {
                         data: book
                     });
                 })
-                .catch((err) => { res.status(400).send(err); });
+                .catch((err) => {
+                    res.status(400).send(err.errors);
+                });
         });
     },
 

@@ -2,37 +2,37 @@ import express from 'express';
 
 import BooksController from '../controllers/booksController';
 import UsersController from '../controllers/usersController';
-import { isLoggedIn, notLoggedIn } from '../helpers/user_auth';
+// import { isLoggedIn, notLoggedIn } from '../helpers/user_auth';
 
 const router = express.Router();
 
-router.get('/users/logout', isLoggedIn, UsersController.logout);
+router.get('/users/logout', UsersController.logout);
 
 /* Borrow book */
-router.post('/users/:userId/books', isLoggedIn, BooksController.borrow);
+router.post('/users/:userId/books', BooksController.borrow);
 
 /* PUT allow user to return book */
-router.put('/users/:userId/books', isLoggedIn, BooksController.return);
+router.put('/users/:userId/books', BooksController.return);
 
 /* GET user borrowed book */
-router.get('/users/:userId/books', isLoggedIn, BooksController.inventory);
+router.get('/users/:userId/books', BooksController.inventory);
 
 /* POST add book */
-router.post('/books', isLoggedIn, BooksController.add);
+router.post('/books', BooksController.add);
 
 /* PUT modify book */
-router.put('/books/:bookId', isLoggedIn, BooksController.update);
+router.put('/books/:bookId', BooksController.update);
 
 /* GET retrieve all books */
-router.get('/books', isLoggedIn, BooksController.retrieveAll);
+router.get('/books', BooksController.retrieveAll);
 
 /* GET retrieve single book */
-router.get('/books/:bookId', isLoggedIn, BooksController.retrieve);
+router.get('/books/:bookId', BooksController.retrieve);
 
 /* POST user signup */
-router.post('/users/signup', notLoggedIn, UsersController.signup);
+router.post('/users/signup', UsersController.signup);
 
 /* POST user signin */
-router.post('/users/signin', notLoggedIn, UsersController.login);
+router.post('/users/signin', UsersController.login);
 
 export default router;

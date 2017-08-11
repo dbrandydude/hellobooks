@@ -31,7 +31,6 @@ var BooksController = {
                 title: req.body.title,
                 author: req.body.author,
                 published: req.body.published,
-                description: req.body.description,
                 qty: req.body.qty
             };
 
@@ -41,7 +40,7 @@ var BooksController = {
                     data: book
                 });
             }).catch(function (err) {
-                res.status(400).send(err);
+                res.status(400).send(err.errors);
             });
         });
     },
