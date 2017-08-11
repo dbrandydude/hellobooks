@@ -7,6 +7,9 @@
 import Debug from 'debug';
 import http from 'http';
 import app from '../app';
+// const Debug = require('debug');
+// const http = require('http');
+// const app = require('../../dist/app');
 
 const debug = Debug('hellobooks:server');
 let port;
@@ -64,7 +67,7 @@ const onError = (error) => {
  */
 
 port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+// app.get('port', port);
 
 /**
  * Create HTTP server.

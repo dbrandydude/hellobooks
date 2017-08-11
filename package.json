@@ -4,9 +4,12 @@
   "public": true,
   "description": "Hello-Books is a simple application that helps manage a library and its processes like stocking, tracking and renting books. Edit Add topics",
   "scripts": {
-    "start": "node ./server/bin/www",
-    "dev": "nodemon ./server/bin/www",
-    "test": "mocha --require babel-polyfill --compilers js:babel-register"
+    "start": "node ./dist/app",
+    "dev": "nodemon ./dist/app",
+    "test": "mocha --require babel-polyfill --compilers js:babel-register",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && mkdir dist && babel server --watch -s -d dist",
+    "build:prod": "npm run build && node entry"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

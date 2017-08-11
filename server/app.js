@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import expressValidator from 'express-validator';
 import passport from 'passport';
+import http from 'http';
 
 // load environment variables with dotenv
 import 'dotenv/config';
@@ -65,6 +66,11 @@ app.use((err, req, res, next) => {
         message: err.message,
         error: {}
     });
+});
+
+app.set('port', process.env.PORT || 3000);
+http.createServer(app).listen(app.get('port'), () => {
+    console.log(`Express server listening on port ${app.get('port')}`);
 });
 
 export default app;

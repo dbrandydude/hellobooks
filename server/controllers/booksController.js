@@ -96,11 +96,10 @@ const BooksController = {
             .findById(bookId)
             .then((book) => {
                 // TODO: associate
-                const bookData = book.title;
                 db.Inventory
                     .create({
                         userId,
-                        book: bookData
+                        bookId
                     })
                     .then((inventory) => {
                         res.status(200).send(inventory);
@@ -121,7 +120,7 @@ const BooksController = {
                 book
                     .update({ return: true })
                     .then(() => {
-                        res.status(200).send({ status: 'success' });
+                        res.status(200).send({ status: 'returned' });
                     })
                     .catch(err => res.status(400).send(err));
             });

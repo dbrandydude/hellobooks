@@ -9,7 +9,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('routes: books', () => {
-    xdescribe('/api/books - unauthorized user', () => {
+    describe('/api/books - unauthorized user', () => {
         it('GET /api/books - should respond with 401 for Unauthorized user', (done) => {
             chai.request(server)
                 .get('/api/books')
@@ -101,7 +101,7 @@ describe('routes: books', () => {
         });
     });
 
-    describe('POST /api/books - authorized user', () => {
+    xdescribe('POST /api/books - authorized user', () => {
         const newBook = {
             isbn: 20177122,
             title: 'This is Andela',
@@ -109,28 +109,32 @@ describe('routes: books', () => {
             published: '8-10-2017',
             qty: 10
         };
-        it('should respond with success along with newly added book', (done) => {
+        it('should respond with success along with the newly added book', (done) => {
             chai.request(server)
                 .post('/api/books')
                 .send(newBook)
                 .end((err, res) => {
+                    should.not.exist(err);
                     res.status.should.equal(201);
-                    // res.type.should.equal('application/json');
+                    res.type.should.equal('application/json');
+                    res.body.status.should.eql('success');
+                    res.body.data.should.include.keys(
+                        'id',
+                        'isbn',
+                        'title',
+                        'author',
+                        'published',
+                        'qty',
+                        'createdAt',
+                        'updatedAt'
+                    );
                     done();
                 });
         });
     });
 
-    xdescribe('PUT /api/books/:bookId - unauthorized user', () => {
-        const newBook = {
-            isbn: 20177122,
-            title: 'This is Andele',
-            author: 'John Doe',
-            published: '8-10-2017',
-            description: 'This is the tale about Andela',
-            qty: 10
-        };
-        it('should respond with success along with updated book', (done) => {
+    xdescribe('PUT /api/books/:bookId', () => {
+        it('should respond with `success` status', (done) => {
             db.Book
                 .findAll()
                 .then((books) => {
@@ -139,17 +143,16 @@ describe('routes: books', () => {
                         .put(`/api/books/${bookObj.id}`)
                         .send({
                             isbn: 20177122,
-                            title: 'This is Andela',
-                            author: 'John Doe',
-                            published: '8-10-2017',
-                            description: 'This is the tale about Andela',
-                            qty: 10
+                            title: 'This is Andele Cycle',
+                            author: 'Mary Doe',
+                            published: '16-10-2017',
+                            qty: 8
                         })
                         .end((err, res) => {
-                            should.exist(err);
-                            res.status.should.equal(401);
-                            res.type.should.equal('application/json');
-                            res.body.status.should.eql('Unauthorized');
+                            // should.not.exist(err);
+                            res.status.should.equal(200);
+                            // res.type.should.equal('application/json');
+                            // res.body.status.should.eql('success');
                             done();
                         });
                 });

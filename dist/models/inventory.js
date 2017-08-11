@@ -1,7 +1,12 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
-const model = (sequelize, DataTypes) => {
-    const Inventory = sequelize.define('Inventory', {
+var model = function model(sequelize, DataTypes) {
+    var Inventory = sequelize.define('Inventory', {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -11,12 +16,12 @@ const model = (sequelize, DataTypes) => {
             allowNull: false
         },
         return: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.BOOLEAN
         }
     });
 
     // Class Method
-    Inventory.associate = (models) => {
+    Inventory.associate = function (models) {
         Inventory.belongsTo(models.User, {
             foreignKey: 'userId',
             onDelete: 'CASCADE'
@@ -26,4 +31,5 @@ const model = (sequelize, DataTypes) => {
     return Inventory;
 };
 
-export default model;
+exports.default = model;
+//# sourceMappingURL=inventory.js.map

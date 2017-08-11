@@ -32,7 +32,7 @@ const UsersController = {
 
             db.User
                 .create(newUser)
-                .then(user => res.status(201).json(user))
+                .then(user => res.status(201).json({ status: 'success' }))
                 .catch(err => res.status(400).send(err));
         });
     },
@@ -48,7 +48,7 @@ const UsersController = {
             }
             req.login(user, (err) => {
                 if (err) return next(err);
-                return res.status(200).send(user);
+                return res.status(200).send({ status: 'Logged in' });
             });
         })(req, res, next);
     },
