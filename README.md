@@ -7,7 +7,7 @@ To veiw template, [http://dbrandydude.github.io](http://dbrandydude.github.io)
 Admin Dashboard - [http://dbrandydude.github.io/admin](http://dbrandydude.github.io/admin)
 
 ## API-Routes
-[dbbooks.herokuapp.com/api](dbbooks.herokuapp.com/api)
+[http://dbbooks.herokuapp.com/api](http://dbbooks.herokuapp.com/api)
 - POST `api/users/signup` => Signup for new new account
 
 - POST `api/users/signin` => Signin to application as a user
