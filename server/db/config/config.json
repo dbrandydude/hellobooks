@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "hellobooks",
-    "host": "127.0.0.1",
+    "username": "xzcfegfu",
+    "password": "OL7qD5_ynVCjxkkGyE9Lm8YERVFVUhyR",
+    "database": "xzcfegfu",
+    "host": "babar.elephantsql.com",
     "dialect": "postgres",
     "logging": false
   },
