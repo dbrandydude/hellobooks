@@ -7,42 +7,6 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('routes: books', () => {
-    describe('/api/books - unauthorized user', () => {
-        it('GET /api/books - should respond with 401 for Unauthorized user', (done) => {
-            chai.request(server)
-                .get('/api/books')
-                .end((err, res) => {
-                    should.exist(err);
-                    res.status.should.equal(401);
-                    res.type.should.equal('application/json');
-                    res.body.status.should.eql('Unauthorized');
-                    done();
-                });
-        });
-        it('POST /api/books - should respond with 401 for Unauthorized user', (done) => {
-            chai.request(server)
-                .post('/api/books')
-                .end((err, res) => {
-                    should.exist(err);
-                    res.status.should.equal(401);
-                    res.type.should.equal('application/json');
-                    res.body.status.should.eql('Unauthorized');
-                    done();
-                });
-        });
-        it('PUT /api/books/:bookId - should respond with 401 for Unauthorized user', (done) => {
-            chai.request(server)
-                .put('/api/books/1')
-                .end((err, res) => {
-                    should.exist(err);
-                    res.status.should.equal(401);
-                    res.type.should.equal('application/json');
-                    res.body.status.should.eql('Unauthorized');
-                    done();
-                });
-        });
-    });
-
     describe('POST /api/users/signup', () => {
         const newUser = {
             username: 'johndoe',
@@ -133,67 +97,6 @@ describe('routes: books', () => {
                         });
                 });
             done();
-        });
-    });
-
-    xdescribe('GET /api/books/:bookId - authorized user', () => {
-        it('should respond with a single book', (done) => {
-            chai.request(server)
-                .post('/api/users/signin')
-                .send({ username: 'johndoe', password: 'abc123' })
-                .then(() => {
-                    chai.request(server)
-                        .get('/api/books/')
-                        .end((err, res) => {
-                            should.not.exist(err);
-                            res.status.should.equal(200);
-                            res.type.should.equal('application/json');
-                            // res.body.status.should.eql('success');
-                            res.body.data.should.include.keys(
-                                'id',
-                                'isbn',
-                                'title',
-                                'author',
-                                'published',
-                                'qty',
-                                'createdAt',
-                                'updatedAt'
-                            );
-                        });
-                });
-            done();
-        });
-    });
-
-    xdescribe('PUT /api/books/:bookId', () => {
-        it('should respond with `success` status', (done) => {
-            db.Book
-                .findAll()
-                .then((books) => {
-                    const bookObj = books[0];
-
-                    chai.request(server)
-                        .post('/api/users/signin')
-                        .send({ username: 'johndoe', password: 'abc123' })
-                        .then(() => {
-                            chai.request(server)
-                                .put(`/api/books/${bookObj.id}`)
-                                .send({
-                                    isbn: 20177122,
-                                    title: 'This is Andele Cycle',
-                                    author: 'Mary Doe',
-                                    published: '16-10-2017',
-                                    qty: 8
-                                })
-                                .end((err, res) => {
-                                    // should.not.exist(err);
-                                    res.status.should.equal(200);
-                                    // res.type.should.equal('application/json');
-                                    // res.body.status.should.eql('success');
-                                });
-                            done();
-                        });
-                });
         });
     });
 });

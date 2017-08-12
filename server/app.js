@@ -70,7 +70,7 @@ app.use((err, req, res, next) => {
 
 app.set('port', process.env.PORT || 3000);
 http.createServer(app).listen(app.get('port'), () => {
-    console.log(`Express server listening on port ${app.get('port')}`);
+    console.log(`We are live on port ${app.get('port')}`);
 });
 
 export default app;
