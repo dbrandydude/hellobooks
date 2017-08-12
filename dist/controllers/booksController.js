@@ -51,9 +51,7 @@ var BooksController = {
 
         _models2.default.Book.findById(bookId).then(function (book) {
             if (!book) {
-                res.status(404).send({
-                    status: 'Not found'
-                });
+                res.status(404).send({ status: 'Not found' });
             }
 
             var updateBook = {
@@ -65,9 +63,12 @@ var BooksController = {
                 qty: req.body.qty || book.isbn
             };
             return book.update(updateBook).then(function () {
-                res.status(200).send({ status: 'success' });
+                res.status(200).send({
+                    status: 'success',
+                    data: book
+                });
             }).catch(function (err) {
-                return res.status(400).send(err);
+                return res.status(400).send(err.errors);
             });
         });
     },
@@ -77,7 +78,7 @@ var BooksController = {
         _models2.default.Book.all().then(function (books) {
             res.send(books);
         }).catch(function (err) {
-            res.send(err);
+            res.send(err.errors);
         });
     },
 
@@ -85,10 +86,10 @@ var BooksController = {
     retrieve: function retrieve(req, res) {
         var bookId = parseInt(req.params.bookId, 10);
         _models2.default.Book.findById(bookId).then(function (book) {
-            if (!book) return res.status(404).send('Not found');
+            if (!book) return res.status(404).send({ status: 'Not found' });
             res.status(200).send(book);
         }).catch(function (err) {
-            res.status(400).send(err);
+            res.status(400).send(err.errors);
         });
     },
 
@@ -98,6 +99,7 @@ var BooksController = {
         var bookId = req.body.bookId;
 
         _models2.default.Book.findById(bookId).then(function (book) {
+            if (!book) return res.status(404).send({ status: 'Not found' });
             // TODO: associate
             _models2.default.Inventory.create({
                 userId: userId,
@@ -106,7 +108,7 @@ var BooksController = {
                 res.status(200).send(inventory);
             });
         }).catch(function (err) {
-            return res.status(400).send(err);
+            return res.status(400).send(err.errors);
         });
     },
 
@@ -114,13 +116,11 @@ var BooksController = {
     return: function _return(req, res) {
         var bookId = parseInt(req.body.bookId, 10);
         _models2.default.Inventory.findOne({ where: { bookId: bookId } }).then(function (book) {
-            if (!book) {
-                res.status(404).send({ status: 'Not found' });
-            }
+            if (!book) return res.status(404).send({ status: 'Not found' });
             book.update({ return: true }).then(function () {
                 res.status(200).send({ status: 'returned' });
             }).catch(function (err) {
-                return res.status(400).send(err);
+                return res.status(400).send(err.errors);
             });
         });
     },
@@ -142,7 +142,7 @@ var BooksController = {
         _models2.default.Inventory.findAll({ where: { userId: req.params.userId } }).then(function (books) {
             res.send(books);
         }).catch(function (err) {
-            res.send(err);
+            res.send(err.errors);
         });
     }
 };

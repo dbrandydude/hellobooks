@@ -47,9 +47,7 @@ const BooksController = {
             .findById(bookId)
             .then((book) => {
                 if (!book) {
-                    res.status(404).send({
-                        status: 'Not found'
-                    });
+                    res.status(404).send({ status: 'Not found' });
                 }
 
                 const updateBook = {
@@ -63,9 +61,12 @@ const BooksController = {
                 return book
                     .update(updateBook)
                     .then(() => {
-                        res.status(200).send({ status: 'success' });
+                        res.status(200).send({
+                            status: 'success',
+                            data: book
+                        });
                     })
-                    .catch(err => res.status(400).send(err));
+                    .catch(err => res.status(400).send(err.errors));
             });
     },
 
@@ -73,7 +74,7 @@ const BooksController = {
     retrieveAll: (req, res) => {
         db.Book.all()
             .then((books) => { res.send(books); })
-            .catch((err) => { res.send(err); });
+            .catch((err) => { res.send(err.errors); });
     },
 
     /* Retrieve single book */
@@ -82,10 +83,10 @@ const BooksController = {
         db.Book
             .findById(bookId)
             .then((book) => {
-                if (!book) return res.status(404).send('Not found');
+                if (!book) return res.status(404).send({ status: 'Not found' });
                 res.status(200).send(book);
             })
-            .catch((err) => { res.status(400).send(err); });
+            .catch((err) => { res.status(400).send(err.errors); });
     },
 
     /* Borrow book */
@@ -96,6 +97,7 @@ const BooksController = {
         db.Book
             .findById(bookId)
             .then((book) => {
+                if (!book) return res.status(404).send({ status: 'Not found' });
                 // TODO: associate
                 db.Inventory
                     .create({
@@ -106,7 +108,7 @@ const BooksController = {
                         res.status(200).send(inventory);
                     });
             })
-            .catch(err => res.status(400).send(err));
+            .catch(err => res.status(400).send(err.errors));
     },
 
     /* Return borrowed books */
@@ -115,15 +117,13 @@ const BooksController = {
         db.Inventory
             .findOne({ where: { bookId } })
             .then((book) => {
-                if (!book) {
-                    res.status(404).send({ status: 'Not found' });
-                }
+                if (!book) return res.status(404).send({ status: 'Not found' });
                 book
                     .update({ return: true })
                     .then(() => {
                         res.status(200).send({ status: 'returned' });
                     })
-                    .catch(err => res.status(400).send(err));
+                    .catch(err => res.status(400).send(err.errors));
             });
     },
 
@@ -143,7 +143,7 @@ const BooksController = {
         db.Inventory
             .findAll({ where: { userId: req.params.userId } })
             .then((books) => { res.send(books); })
-            .catch((err) => { res.send(err); });
+            .catch((err) => { res.send(err.errors); });
     }
 };
 

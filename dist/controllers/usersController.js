@@ -42,9 +42,12 @@ var UsersController = {
             };
 
             _models2.default.User.create(newUser).then(function (user) {
-                return res.status(201).json({ status: 'success' });
+                return res.status(201).json({
+                    status: 'success',
+                    data: user
+                });
             }).catch(function (err) {
-                return res.status(400).send(err);
+                return res.status(400).send(err.errors);
             });
         });
     },
@@ -60,7 +63,10 @@ var UsersController = {
             }
             req.login(user, function (err) {
                 if (err) return next(err);
-                return res.status(200).send({ status: 'Logged in' });
+                return res.status(200).send({
+                    status: 'Logged in',
+                    data: user
+                });
             });
         })(req, res, next);
     },
