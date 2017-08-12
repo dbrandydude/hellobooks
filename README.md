@@ -1,5 +1,5 @@
 # Hellobooks
-[](https://travis-ci.org/dbrandydude/hellobooks.svg?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/dbrandydude/hellobooks/badge.svg?branch=master)](https://coveralls.io/github/dbrandydude/hellobooks?branch=master)
 Hello-Books is a simple application that helps manage a library and its processes like stocking, tracking and renting books. https://dbbooks.herokuapp.com
 
 ## Template
